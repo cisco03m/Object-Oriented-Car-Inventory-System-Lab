@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Assignment</title>
+    <script src="new.js"></script>
+</head>
+
+<body>
+    <h1>Car Inventory</h1>
+    
+    <!-- This is for the car form where it ask for car name,model,year,price-->
+    <form id="carInfo">
+        <input type="text" id="carName" placeholder="Car Name" required />
+        <input type="text" id="carModel" placeholder="Car Model" required />
+        <input type="number" id="carYear" placeholder="Year" required />
+        <input type="number" id="carPrice" placeholder="Price" required />
+        <button type="submit">Add Car</button>
+    </form>
+
+    <h2>Cars in Inventory:</h2>
+    <div id="carList"></div>
+
+    <button id="totalPrice">Show Total Price</button>
+    <div id="totalPrice"></div>
+
+    <script>
+        const carManager = new CarManager();
+
+
+        document.getElementById('carInfo').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('carName').value;
+            const model = document.getElementById('carModel').value;
+            const year = parseInt(document.getElementById('carYear').value);
+            const price = parseFloat(document.getElementById('carPrice').value);
+
+            const newCar = new Car(name, model, year, price);
+            carManager.addCar(newCar);
+            document.getElementById('carList').innerHTML = carManager.displayCars();
+            this.reset();
+        });
+
+
+        document.getElementById('totalPrice').addEventListener('click', function() {
+            document.getElementById('totalPrice').innerText = carManager.showTotalPrice();
+        });
+    </script>
+</body>
+</html>
